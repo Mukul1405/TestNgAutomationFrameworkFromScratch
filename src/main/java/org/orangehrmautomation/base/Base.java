@@ -21,7 +21,7 @@ import java.util.Properties;
 
 public class Base {
 
-    private static final Logger logger = LogManager.getLogger(Base.class);
+    public static final Logger logger = LogManager.getLogger(Base.class);
 
     public WebDriver driver;
     public Properties prop;
@@ -84,6 +84,7 @@ public class Base {
 
     @AfterMethod
     public void getResult(ITestResult result) {
+        System.out.println("After Method");
         if (extentTest != null) {
             if(result.getStatus() == ITestResult.FAILURE) {
                 extentTest.log(Status.FAIL, result.getThrowable());
@@ -101,8 +102,24 @@ public class Base {
         }
     }
 
+    @BeforeTest
+    public void beforeTest() {
+        System.out.println("Before Test");
+    }
+
+    @BeforeClass
+    public void beforeClass() {
+        System.out.println("Before Class");
+    }
+
+    @AfterClass
+    public void afterClass() {
+        System.out.println("After Class");
+    }
+
     @AfterTest
     public void afterTest() {
+        System.out.println("After Test");
         if (driver != null) {
             driver.quit();
             logger.info("Driver closed after test.");
